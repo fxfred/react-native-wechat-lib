@@ -510,7 +510,23 @@ public class WeChatLibModule extends ReactContextBaseJavaModule implements IWXAP
         msg.description = data.hasKey("description") ? data.getString("description") : null;
 
         if (data.hasKey("thumbImageUrl")) {
-            this._getImage(Uri.parse(data.getString("thumbImageUrl")), null, new ImageCallback() {
+            Uri uri = null;
+            // if (data.hasKey("thumbImageUrl")) {
+                // <<<<<<<<<<code3>>>>>>>>>
+            String imageUrl = data.getString("thumbImageUrl");
+
+            try {
+                uri = Uri.parse(imageUrl);
+                // Verify scheme is set, so that relative uri (used by static resources) are not handled.
+                if (uri.getScheme() == null) {
+                    uri = getResourceDrawableUri(getReactApplicationContext(), imageUrl);
+                }
+            } catch (Exception e) {
+                // ignore malformed uri, then attempt to extract resource ID.
+            }
+            // }
+            // this._getImage(Uri.parse(data.getString("thumbImageUrl")), null, new ImageCallback() {
+            this._getImage(uri, new ResizeOptions(100, 100), new ImageCallback() {
                 @Override
                 public void invoke(@Nullable Bitmap bmp) {
                     // 设置缩略图

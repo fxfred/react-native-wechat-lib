@@ -295,12 +295,25 @@ RCT_EXPORT_METHOD(shareImage:(NSDictionary *)data
         callback([NSArray arrayWithObject:@"shareImage: The value of ImageUrl cannot be empty."]);
         return;
     }
-    NSRange range = [imageUrl rangeOfString:@"."];
-    if ( range.length == 0)
-    {
-        callback([NSArray arrayWithObject:@"shareImage: ImageUrl value, Could not find file suffix."]);
-        return;
+     // <<<<<<<<<code4>>>>>>>>>
+    NSRange range1 = [imageUrl rangeOfString:@"data:image"];
+    if (range1.location == 0){
+        NSLog(@"+++++data:image");
+    } else {
+        NSRange range = [imageUrl rangeOfString:@"."];
+        if ( range.length == 0)
+        {
+            callback([NSArray arrayWithObject:@"shareImage: ImageUrl value, Could not find file suffix."]);
+            return;
+        }
     }
+    // <<<<end>>>>>>
+    // NSRange range = [imageUrl rangeOfString:@"."];
+    // if ( range.length == 0)
+    // {
+    //     callback([NSArray arrayWithObject:@"shareImage: ImageUrl value, Could not find file suffix."]);
+    //     return;
+    // }
 
     // 根据路径下载图片
     UIImage *image = [self getImageFromURL:imageUrl];

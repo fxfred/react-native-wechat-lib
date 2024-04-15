@@ -1,4 +1,6 @@
-<img height="200" src="./image/weixin.png?raw=true">
+<img height="200" src="./image/weixin.png?raw=true"/>
+
+# 本库增加了分享时的图片处理，其余未改动
 
 # React-Native-Wechat-Lib
 ![Version](https://img.shields.io/badge/Version-V3.0.0-brightgreen)
